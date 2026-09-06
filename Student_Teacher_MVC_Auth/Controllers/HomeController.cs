@@ -24,12 +24,22 @@ namespace Student_Teacher_MVC_Auth.Controllers
                 client.DefaultRequestHeaders.Add("Cookie", authCookie);
             }
 
-            var response = await client.GetAsync("api/test/teacher-only");
-            var message = response.IsSuccessStatusCode
-                ? await response.Content.ReadAsStringAsync()
-                : $"Access denied ({response.StatusCode})";
+            var response = await client.GetAsync("api/Teacher/teacher-only");
+            var message = response.IsSuccessStatusCode;
+            await response.Content.ReadAsStringAsync();
+            string modelMessage;
 
-            return View(model: message);
+            if (response.IsSuccessStatusCode)
+            {
+                modelMessage = await response.Content.ReadAsStringAsync();
+            }
+            else
+            {
+                modelMessage = "Access Denied: " + response.StatusCode;
+            }
+
+
+            return View(model: modelMessage );
         }
 
         public async Task<IActionResult> StudentArea()
@@ -41,12 +51,22 @@ namespace Student_Teacher_MVC_Auth.Controllers
             if (authCookie != null)
                 client.DefaultRequestHeaders.Add("Cookie", authCookie);
 
-            var response = await client.GetAsync("api/test/student-only");
-            var message = response.IsSuccessStatusCode
-                ? await response.Content.ReadAsStringAsync()
-                : $"Access denied ({response.StatusCode})";
+            var response = await client.GetAsync("api/Student/student-only");
+            var message = response.IsSuccessStatusCode;
+            await response.Content.ReadAsStringAsync();
+            string modelMessage;
 
-            return View(model: message);
+            if (response.IsSuccessStatusCode)
+            {
+                modelMessage = await response.Content.ReadAsStringAsync();
+            }
+            else
+            {
+                modelMessage = "Access Denied: " + response.StatusCode;
+            }
+
+
+            return View(model: modelMessage);
         }
     }
 }
