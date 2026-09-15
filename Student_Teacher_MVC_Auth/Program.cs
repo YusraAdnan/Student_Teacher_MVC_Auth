@@ -12,6 +12,7 @@ namespace Student_Teacher_MVC_Auth
             builder.Services.AddSession();
 
             var app = builder.Build();
+            app.UseStaticFiles();       
 
             app.UseSession();
             app.UseRouting();
