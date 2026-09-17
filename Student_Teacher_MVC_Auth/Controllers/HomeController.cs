@@ -17,16 +17,17 @@ namespace Student_Teacher_MVC_Auth.Controllers
         {
             return View();
         }
+        //Understand this through the slide: Go to slide 6 in the ppt called 'cookies'
         public async Task<IActionResult> TeacherArea()
         {
             var client = _clientFactory.CreateClient();
             client.BaseAddress = new Uri("https://localhost:7261/");
 
-            //Finds the session that was named at login 'ApiAuthCooki'
+            //Finds the session that was named at login 'ApiAuthCooki' (finds the drawer with the label)
             var authCookie = HttpContext.Session.GetString("ApiAuthCookie");
             if (authCookie != null)
             {
-                //If it is found, keyword 'Cookie' is attached to the request sent to the API
+                //If it is found, keyword 'Cookie' is attached to the request sent to the API (API looks for this keyword in request header)
                 client.DefaultRequestHeaders.Add("Cookie", authCookie);
             }
             //API receives the request with the Cookie attached, allowing API to know which role is logged in 

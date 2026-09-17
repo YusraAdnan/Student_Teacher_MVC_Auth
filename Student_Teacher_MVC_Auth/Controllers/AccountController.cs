@@ -13,10 +13,10 @@ public class AccountController : Controller
         _clientFactory = clientFactory;
     }
 
-    [HttpGet]
+    [HttpGet]//allows you to see the view 
     public IActionResult Register() => View();
 
-    [HttpPost]
+    [HttpPost] //understand this through slide 5: in ppt called cookies
     public async Task<IActionResult> Register(RegisterViewModel model)
     {
         //Create a client instance 
@@ -39,7 +39,7 @@ public class AccountController : Controller
         return View(model);
     }
 
-    [HttpGet]
+    [HttpGet]//show the login view
     public IActionResult Login() => View();
 
     /* The browser is the client here. The MVC is the one answering
@@ -67,8 +67,8 @@ public class AccountController : Controller
             var cookie = response.Headers.GetValues("Set-Cookie").FirstOrDefault();//Set-Cookie was the keyword set by the API when cookies created
 
             /* it generates the random Session ID label (8f3a2b91-xyz)
-             * creates the drawer if one doesn't exist yet 
-             * it puts cookie's value into that drawer, labeled "ApiAuthCookie"*/
+             * creates the drawer
+             * puts cookie's value into that drawer, labeled "ApiAuthCookie"*/
             HttpContext.Session.SetString("ApiAuthCookie", cookie);
 
             return RedirectToAction("Index", "Home"); //browser gets the drawer label
