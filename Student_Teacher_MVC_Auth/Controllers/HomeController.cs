@@ -17,6 +17,7 @@ namespace Student_Teacher_MVC_Auth.Controllers
         {
             return View();
         }
+
         //Understand this through the slide: Go to slide 6 in the ppt called 'cookies'
         public async Task<IActionResult> TeacherArea()
         {

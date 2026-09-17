@@ -16,7 +16,7 @@ public class AccountController : Controller
     [HttpGet]//allows you to see the view 
     public IActionResult Register() => View();
 
-    [HttpPost] //understand this through slide 5: in ppt called cookies
+    [HttpPost] 
     public async Task<IActionResult> Register(RegisterViewModel model)
     {
         //Create a client instance 
@@ -42,10 +42,8 @@ public class AccountController : Controller
     [HttpGet]//show the login view
     public IActionResult Login() => View();
 
-    /* The browser is the client here. The MVC is the one answering
-     * Plain form submission - No cookie exists here */
 
-    [HttpPost]
+    [HttpPost] //understand this through slide 5: in ppt called cookies
     public async Task<IActionResult> Login(LoginViewModel model)
     {
         /* MVC server sends a request to the API server */
@@ -56,7 +54,8 @@ public class AccountController : Controller
         var content = new StringContent(json, Encoding.UTF8, "application/json");
 
         /* (refer to the API Auth Controller comment called "Step 1"
-        At this point the API runs its Login action */
+        At this point the API runs its Login endpoint
+        Sends back the 'Set-Cookie' response and cookie information */
         var response = await client.PostAsync("api/auth/login", content);
 
         //MVC server reads that cookie issued by the API server 
